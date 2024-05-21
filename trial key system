@@ -173,6 +173,3 @@ function InitMainScript()
     })
 
     OrionLib:Init() 
-end
-
-OrionLib:Init()
