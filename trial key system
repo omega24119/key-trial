@@ -1,0 +1,175 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+local Window = OrionLib:MakeWindow({Name = "all universe hub", HidePremium = false, IntroText = "All universe hub", SaveConfig = true, ConfigFolder = "OrionTest"})
+
+local keyWindow = OrionLib:MakeWindow({Name = "Key System", HidePremium = false, IntroText = "Enter Key to Proceed", SaveConfig = false})
+local keyTab = keyWindow:MakeTab({Name = "Key", Icon = "rbxassetid://4483345998", PremiumOnly = false})
+
+keyTab:AddTextbox({
+    Name = "Enter Key",
+    Default = "",
+    TextDisappear = true,
+    Callback = function(Value)
+        CheckKey(Value)
+    end
+})
+
+function CheckKey(inputKey)
+    local validKey = "123ALLUNIVERSE"
+    if inputKey == validKey then
+        OrionLib:MakeNotification({
+            Name = "Success",
+            Content = "Key is valid. Access granted.",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+        keyWindow:Destroy() -- Close the key window
+        InitMainScript() -- Start the main script
+    else
+        OrionLib:MakeNotification({
+            Name = "Error",
+            Content = "Invalid key. Please try again.",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+    end
+end
+
+function InitMainScript()
+    local eggTab = Window:MakeTab({
+        Name = "main",
+        Icon = "rbxassetid://4483345998",
+        PremiumOnly = false
+    })
+
+    local Section = eggTab:AddSection({
+        Name = "only things u need D:"
+    })
+
+    -- values
+    getgenv().autoegg = false
+    getgenv().autothrow = false
+    getgenv().autoeat = false
+    getgenv().autoupg = false
+    getgenv().autosell = false
+
+    -- functions
+    function doegg()
+        while getgenv().autoegg == true do 
+            local args = {
+                [1] = false,
+                [2] = false
+            }
+            game:GetService("Players").LocalPlayer.Character.Events.Grab:FireServer(unpack(args))
+            task.wait(0.1)
+        end
+    end 
+
+    function dothrow()
+        while getgenv().autothrow == true do 
+            game:GetService("Players").LocalPlayer.Character.Events.Throw:FireServer()
+            task.wait(0.1)
+        end
+    end 
+
+    function doeat()
+        while getgenv().autoeat == true do
+            game:GetService("Players").LocalPlayer.Character.Events.Eat:FireServer()
+            task.wait(0.1)
+        end
+    end
+
+    function doupg()
+        while getgenv().autoupg == true do
+            local args = {
+                [1] = "MaxSize"
+            }
+            game:GetService("ReplicatedStorage").Events.PurchaseEvent:FireServer(unpack(args))
+            task.wait(0.1)
+        end
+    end
+
+    function dosell()
+        while getgenv().autosell == true do
+            game:GetService("Players").LocalPlayer.Character.Events.Sell:FireServer()
+            task.wait(0.1)
+        end
+    end
+
+    -- toggles
+    eggTab:AddToggle({
+        Name = "auto grab",
+        Default = false,
+        Callback = function(bool)
+            getgenv().autoegg = bool
+            if bool then 
+                doegg()
+            end
+        end    
+    })
+
+    eggTab:AddToggle({
+        Name = "auto throw",
+        Default = false,
+        Callback = function(bool)
+            getgenv().autothrow = bool
+            if bool then 
+                dothrow()
+            end
+        end    
+    })
+
+    eggTab:AddToggle({
+        Name = "auto eat",
+        Default = false,
+        Callback = function(bool)
+            getgenv().autoeat = bool
+            if bool then 
+                doeat()
+            end
+        end    
+    })
+
+    eggTab:AddToggle({
+        Name = "auto upgrade MaxSize",
+        Default = false,
+        Callback = function(bool)
+            getgenv().autoupg = bool
+            if bool then 
+                doupg()
+            end
+        end    
+    })
+
+    eggTab:AddToggle({
+        Name = "auto sell",
+        Default = false,
+        Callback = function(bool)
+            getgenv().autosell = bool
+            if bool then 
+                dosell()
+            end
+        end    
+    })
+
+    -- buttons
+    eggTab:AddButton({
+        Name = "Buy low gravity event!",
+        Callback = function()
+            local args = {
+                [1] = "Low Gravity"
+            }
+            game:GetService("ReplicatedStorage").Events.SummonEvent:FireServer(unpack(args))
+            print("button pressed")
+        end    
+    })
+
+    eggTab:AddButton({
+        Name = "Copy Discord Link",
+        Callback = function()
+            setclipboard("https://discord.gg/88dfBYQk")
+            print("Discord link copied to clipboard")
+        end    
+    })
+
+    OrionLib:Init() 
