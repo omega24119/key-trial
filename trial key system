@@ -1,6 +1,4 @@
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-
-local Window = OrionLib:MakeWindow({Name = "all universe hub", HidePremium = false, IntroText = "All universe hub", SaveConfig = true, ConfigFolder = "OrionTest"})
+local OrionLib = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Orion/main/source'))()
 
 local keyWindow = OrionLib:MakeWindow({Name = "Key System", HidePremium = false, IntroText = "Enter Key to Proceed", SaveConfig = false})
 local keyTab = keyWindow:MakeTab({Name = "Key", Icon = "rbxassetid://4483345998", PremiumOnly = false})
@@ -36,6 +34,8 @@ function CheckKey(inputKey)
 end
 
 function InitMainScript()
+    local Window = OrionLib:MakeWindow({Name = "all universe hub", HidePremium = false, IntroText = "All universe hub", SaveConfig = true, ConfigFolder = "OrionTest"})
+
     local eggTab = Window:MakeTab({
         Name = "main",
         Icon = "rbxassetid://4483345998",
@@ -173,3 +173,6 @@ function InitMainScript()
     })
 
     OrionLib:Init() 
+end
+
+OrionLib:Init()
